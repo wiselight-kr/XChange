@@ -1,5 +1,3 @@
 package xchange.indodax;
 
-public interface Indodax {
-
-}
+public interface Indodax {}
