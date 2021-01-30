@@ -1,50 +1,39 @@
-package xchange.indodax.service;
+package org.knowm.xchange.indodax.service;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import org.knowm.xchange.Exchange;
-import org.knowm.xchange.client.ExchangeRestProxyBuilder;
 import org.knowm.xchange.currency.CurrencyPair;
-import org.knowm.xchange.service.BaseExchangeService;
-import org.knowm.xchange.service.BaseService;
-import si.mazi.rescu.ParamsDigest;
-import xchange.indodax.IndodaxAdapter;
-import xchange.indodax.IndodaxAuthenticated;
-import xchange.indodax.IndodaxDigest;
+import org.knowm.xchange.indodax.IndodaxAdapter;
+import org.knowm.xchange.indodax.dto.trade.IndodaxTradeResponse;
 
-public class IndodaxTradeServiceRaw extends BaseExchangeService implements BaseService {
+public class IndodaxTradeServiceRaw extends IndodaxBaseService {
+
   /**
    * Constructor
    *
    * @param exchange
    */
-  protected final String apiKey;
-
-  protected final IndodaxAuthenticated indodaxAuthenticated;
-  protected final ParamsDigest apiSecret;
-
   protected IndodaxTradeServiceRaw(Exchange exchange) {
+
     super(exchange);
-    this.apiKey = exchange.getExchangeSpecification().getApiKey();
-    this.indodaxAuthenticated =
-        ExchangeRestProxyBuilder.forInterface(
-                IndodaxAuthenticated.class, exchange.getExchangeSpecification())
-            .build();
-    this.apiSecret =
-        IndodaxDigest.createInstance(exchange.getExchangeSpecification().getSecretKey());
   }
 
   public IndodaxTradeResponse placeLimitOrderRaw(
-      CurrencyPair pair, OrderSide type, BigDecimal price, BigDecimal idr, BigDecimal btc) {
+      CurrencyPair pair, String type, BigDecimal price, BigDecimal amount) throws IOException {
+    // buy면 idr계산
+    // sell면 amount 그대로 빠짐
 
     IndodaxTradeResponse response =
-        indodaxAuthenticated.limitOrder(
-            apiKey,
-            apiSecret.toString(),
+        indodax.limitOrder(
+            this.apiKey,
+            this.signatureCreator,
+            exchange.getNonceFactory(),
             "trade",
             IndodaxAdapter.toSymbol(pair),
-            "buy",
-            limitOrder.getLimitPrice(),
-            limitOrder.getOriginalAmount());
+            type,
+            price,
+            amount);
     return response;
   }
 }

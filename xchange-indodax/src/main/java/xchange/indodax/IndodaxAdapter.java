@@ -1,4 +1,4 @@
-package xchange.indodax;
+package org.knowm.xchange.indodax;
 
 import org.knowm.xchange.currency.CurrencyPair;
 

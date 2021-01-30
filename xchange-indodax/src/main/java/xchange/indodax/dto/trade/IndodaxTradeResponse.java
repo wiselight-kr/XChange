@@ -1,4 +1,4 @@
-package xchange.indodax.service;
+package org.knowm.xchange.indodax.dto.trade;
 
 public class IndodaxTradeResponse {
   public String getOrderId() {

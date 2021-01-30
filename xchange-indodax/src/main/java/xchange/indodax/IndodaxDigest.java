@@ -1,4 +1,4 @@
-package xchange.indodax;
+package org.knowm.xchange.indodax;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;

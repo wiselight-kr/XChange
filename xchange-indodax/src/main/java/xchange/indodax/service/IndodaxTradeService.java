@@ -1,6 +1,8 @@
-package xchange.indodax.service;
+package org.knowm.xchange.indodax.service;
 
+import java.io.IOException;
 import org.knowm.xchange.Exchange;
+import org.knowm.xchange.dto.Order.OrderType;
 import org.knowm.xchange.dto.trade.LimitOrder;
 import org.knowm.xchange.service.trade.TradeService;
 
@@ -10,10 +12,14 @@ public class IndodaxTradeService extends IndodaxTradeServiceRaw implements Trade
     super(exchange);
   }
 
-  public String placeLimitOrder(LimitOrder limitOrder) {
+  @Override
+  public String placeLimitOrder(LimitOrder limitOrder) throws IOException {
 
-    IndodaxTradeResponse response = placeLimitOrderRaw(limitOrder);
-
-    return response.getOrderId();
+    return placeLimitOrderRaw(
+            limitOrder.getCurrencyPair(),
+            limitOrder.getType() == OrderType.BID ? "buy" : "sell",
+            limitOrder.getLimitPrice(),
+            limitOrder.getOriginalAmount())
+        .getOrderId();
   }
 }

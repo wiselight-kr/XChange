@@ -1,3 +1,3 @@
-package xchange.indodax;
+package org.knowm.xchange.indodax;
 
 public interface Indodax {}

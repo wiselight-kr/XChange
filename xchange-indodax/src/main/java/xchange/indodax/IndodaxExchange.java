@@ -1,29 +1,34 @@
-package xchange.indodax;
+package org.knowm.xchange.indodax;
 
+import java.util.concurrent.TimeUnit;
 import org.knowm.xchange.BaseExchange;
-import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ExchangeSpecification;
+import org.knowm.xchange.indodax.service.IndodaxTradeService;
+import org.knowm.xchange.utils.nonce.CurrentTimeIncrementalNonceFactory;
 import si.mazi.rescu.SynchronizedValueFactory;
-import xchange.indodax.service.IndodaxTradeService;
 
-public class IndodaxExchange extends BaseExchange implements Exchange {
+public class IndodaxExchange extends BaseExchange {
+  private SynchronizedValueFactory<Long> nonceFactory =
+      new CurrentTimeIncrementalNonceFactory(MILLISECONDS);
+
   @Override
-  public SynchronizedValueFactory<Long> getNonceFactory() {
-    return null;
+  protected void initServices() {
+    this.tradeService = new IndodaxTradeService(this);
   }
 
   @Override
   public ExchangeSpecification getDefaultExchangeSpecification() {
     ExchangeSpecification exchangeSpecification = new ExchangeSpecification(this.getClass());
-    exchangeSpecification.setSslUri("https://indodax.com/");
-    exchangeSpecification.setHost("https://www.indodax.com");
+    exchangeSpecification.setSslUri("https://indodax.com");
+    exchangeSpecification.setHost("indodax.com");
     exchangeSpecification.setExchangeName("Indodax");
+    exchangeSpecification.setExchangeDescription("Indodax Exchange.");
 
     return exchangeSpecification;
   }
 
   @Override
-  protected void initServices() {
-    this.tradeService = new IndodaxTradeService(this);
+  public SynchronizedValueFactory<Long> getNonceFactory() {
+    return nonceFactory;
   }
 }
