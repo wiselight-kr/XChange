@@ -1,4 +1,3 @@
 package xchange.mxc;
 
-public interface Mxc {
-}
+public interface Mxc {}

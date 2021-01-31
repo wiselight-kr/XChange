@@ -1,6 +1,5 @@
 package org.knowm.xchange.indodax;
 
-import java.util.concurrent.TimeUnit;
 import org.knowm.xchange.BaseExchange;
 import org.knowm.xchange.ExchangeSpecification;
 import org.knowm.xchange.indodax.service.IndodaxTradeService;
@@ -8,8 +7,7 @@ import org.knowm.xchange.utils.nonce.CurrentTimeIncrementalNonceFactory;
 import si.mazi.rescu.SynchronizedValueFactory;
 
 public class IndodaxExchange extends BaseExchange {
-  private SynchronizedValueFactory<Long> nonceFactory =
-      new CurrentTimeIncrementalNonceFactory(MILLISECONDS);
+  private SynchronizedValueFactory<Long> nonceFactory = new CurrentTimeIncrementalNonceFactory();
 
   @Override
   protected void initServices() {

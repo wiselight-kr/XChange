@@ -1,25 +1,24 @@
 package xchange.mxc.service;
 
 import org.knowm.xchange.Exchange;
-import org.knowm.xchange.client.ExchangeRestProxyBuilder;
 import org.knowm.xchange.dto.trade.LimitOrder;
 import org.knowm.xchange.service.trade.TradeService;
-import si.mazi.rescu.ParamsDigest;
 
 public class MxcTradeService extends MxcTradeRaw implements TradeService {
 
-    /**
-     * Constructor
-     *
-     * @param exchange
-     */
-    public MxcTradeService(Exchange exchange) {
-        super(exchange);
-    }
-    public String placeLimitOrder(LimitOrder limitOrder){
+  /**
+   * Constructor
+   *
+   * @param exchange
+   */
+  public MxcTradeService(Exchange exchange) {
+    super(exchange);
+  }
 
-        MxcTradeResponse response = placeLimitOrderRaw(limitOrder);
+  public String placeLimitOrder(LimitOrder limitOrder) {
 
-        return response.getOrderId();
-    }
+    MxcTradeResponse response = placeLimitOrderRaw(limitOrder);
+
+    return response.getOrderId();
+  }
 }
