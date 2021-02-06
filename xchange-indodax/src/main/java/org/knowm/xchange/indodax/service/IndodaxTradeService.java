@@ -20,6 +20,7 @@ public class IndodaxTradeService extends IndodaxTradeServiceRaw implements Trade
             limitOrder.getType() == OrderType.BID ? "buy" : "sell",
             limitOrder.getLimitPrice(),
             limitOrder.getOriginalAmount())
-        .getOrderId();
+        .get_return()
+        .getOrder_id();
   }
 }

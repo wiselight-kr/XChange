@@ -20,6 +20,5 @@ public interface IndodaxAuthenticated {
       @FormParam("method") String method,
       @FormParam("pair") String pair,
       @FormParam("type") String type,
-      @FormParam("price") BigDecimal price,
-      @FormParam("idr") BigDecimal idr);
+      @FormParam("price") BigDecimal price);
 }

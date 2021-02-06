@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.currency.CurrencyPair;
+import org.knowm.xchange.exceptions.ExchangeException;
 import org.knowm.xchange.indodax.IndodaxAdapter;
+import org.knowm.xchange.indodax.IndodaxDigest;
 import org.knowm.xchange.indodax.dto.trade.IndodaxTradeResponse;
 
 public class IndodaxTradeServiceRaw extends IndodaxBaseService {
@@ -21,8 +23,8 @@ public class IndodaxTradeServiceRaw extends IndodaxBaseService {
 
   public IndodaxTradeResponse placeLimitOrderRaw(
       CurrencyPair pair, String type, BigDecimal price, BigDecimal amount) throws IOException {
-    // buy면 idr계산
-    // sell면 amount 그대로 빠짐
+    if (type.equals("sell")) IndodaxDigest.setAmount(pair.base.getSymbol().toLowerCase(), amount);
+    else IndodaxDigest.setAmount(pair.counter.getSymbol().toLowerCase(), amount.multiply(price));
 
     IndodaxTradeResponse response =
         indodax.limitOrder(
@@ -32,8 +34,8 @@ public class IndodaxTradeServiceRaw extends IndodaxBaseService {
             "trade",
             IndodaxAdapter.toSymbol(pair),
             type,
-            price,
-            amount);
+            price);
+    if (response.getError() != null) throw new ExchangeException(response.getError());
     return response;
   }
 }
