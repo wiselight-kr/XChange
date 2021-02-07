@@ -2,9 +2,10 @@ package org.knowm.xchange.mxc.service;
 
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.dto.trade.LimitOrder;
+import org.knowm.xchange.mxc.dto.trade.MxcTradeResponse;
 import org.knowm.xchange.service.trade.TradeService;
 
-public class MxcTradeService extends MxcTradeRaw implements TradeService {
+public class MxcTradeService extends MxcTradeServiceRaw implements TradeService {
 
   /**
    * Constructor

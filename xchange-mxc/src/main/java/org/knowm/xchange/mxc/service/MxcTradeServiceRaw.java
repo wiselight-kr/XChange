@@ -2,33 +2,29 @@ package org.knowm.xchange.mxc.service;
 
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.client.ExchangeRestProxyBuilder;
+import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.trade.LimitOrder;
+import org.knowm.xchange.mxc.dto.trade.MxcTradeResponse;
 import org.knowm.xchange.service.BaseExchangeService;
 import org.knowm.xchange.service.BaseService;
 import org.knowm.xchange.mxc.MxcAuthenticated;
 import org.knowm.xchange.mxc.MxcDigest;
 
-public class MxcTradeRaw extends BaseExchangeService implements BaseService {
+import java.io.IOException;
+import java.math.BigDecimal;
 
-  protected final String apiKey;
-  protected final org.knowm.xchange.mxc.MxcAuthenticated MxcAuthenticated;
-  protected final String apiSecret;
+public class MxcTradeServiceRaw extends MxcBaseService {
   /**
    * Constructor
    *
    * @param exchange
    */
-  protected MxcTradeRaw(Exchange exchange) {
+  protected MxcTradeServiceRaw(Exchange exchange) {
     super(exchange);
-    this.apiKey = exchange.getExchangeSpecification().getApiKey();
-    this.MxcAuthenticated =
-        ExchangeRestProxyBuilder.forInterface(
-                MxcAuthenticated.class, exchange.getExchangeSpecification())
-            .build();
-    this.apiSecret = exchange.getExchangeSpecification().getSecretKey();
   }
 
-  public MxcTradeResponse placeLimitOrderRaw(LimitOrder limitOrder) {
+  public MxcTradeResponse placeLimitOrderRaw(
+          CurrencyPair pair, String type, BigDecimal price, BigDecimal amount) throws IOException {
     String symbol =
         (limitOrder.getCurrencyPair().base + "_" + limitOrder.getCurrencyPair().counter);
     int reqTime = (int) System.currentTimeMillis() / 1000;
