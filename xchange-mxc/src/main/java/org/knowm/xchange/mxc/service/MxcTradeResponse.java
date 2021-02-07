@@ -1,4 +1,4 @@
-package xchange.mxc.service;
+package org.knowm.xchange.mxc.service;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

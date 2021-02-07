@@ -1,17 +1,17 @@
-package xchange.mxc.service;
+package org.knowm.xchange.mxc.service;
 
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.client.ExchangeRestProxyBuilder;
 import org.knowm.xchange.dto.trade.LimitOrder;
 import org.knowm.xchange.service.BaseExchangeService;
 import org.knowm.xchange.service.BaseService;
-import xchange.mxc.MxcAuthenticated;
-import xchange.mxc.MxcDigest;
+import org.knowm.xchange.mxc.MxcAuthenticated;
+import org.knowm.xchange.mxc.MxcDigest;
 
 public class MxcTradeRaw extends BaseExchangeService implements BaseService {
 
   protected final String apiKey;
-  protected final xchange.mxc.MxcAuthenticated MxcAuthenticated;
+  protected final org.knowm.xchange.mxc.MxcAuthenticated MxcAuthenticated;
   protected final String apiSecret;
   /**
    * Constructor

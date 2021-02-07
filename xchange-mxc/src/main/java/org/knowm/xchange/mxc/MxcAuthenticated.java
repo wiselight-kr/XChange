@@ -1,9 +1,10 @@
-package xchange.mxc;
+package org.knowm.xchange.mxc;
 
 import java.math.BigDecimal;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import xchange.mxc.service.MxcTradeResponse;
+
+import org.knowm.xchange.mxc.service.MxcTradeResponse;
 
 @Path("/open/api/v2/order/place")
 @Produces(MediaType.APPLICATION_JSON)

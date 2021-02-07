@@ -1,4 +1,4 @@
-package xchange.mxc;
+package org.knowm.xchange.mxc;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;

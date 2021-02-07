@@ -1,4 +1,4 @@
-package xchange.mxc.service;
+package org.knowm.xchange.mxc.service;
 
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.dto.trade.LimitOrder;

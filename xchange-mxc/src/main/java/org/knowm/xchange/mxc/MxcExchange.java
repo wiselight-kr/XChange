@@ -1,10 +1,10 @@
-package xchange.mxc;
+package org.knowm.xchange.mxc;
 
 import org.knowm.xchange.BaseExchange;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ExchangeSpecification;
+import org.knowm.xchange.mxc.service.MxcTradeService;
 import si.mazi.rescu.SynchronizedValueFactory;
-import xchange.mxc.service.MxcTradeService;
 
 public class MxcExchange extends BaseExchange implements Exchange {
   @Override
