@@ -10,26 +10,26 @@ import si.mazi.rescu.ParamsDigest;
 
 public class MxcBaseService extends BaseExchangeService implements BaseService {
 
-    protected final MxcAuthenticated indodax;
-    protected final String apiKey;
-    protected final String apiSecret;
-    protected final String url;
-    protected ParamsDigest signatureCreator;
+  protected final MxcAuthenticated mxc;
+  protected final String apiKey;
+  protected final String apiSecret;
+  protected final String url;
+  protected ParamsDigest signatureCreator;
 
-    /**
-     * Constructor
-     *
-     * @param exchange
-     */
-    public MxcBaseService(Exchange exchange) {
-        super(exchange);
-        this.indodax =
-                ExchangeRestProxyBuilder.forInterface(
-                        MxcAuthenticated.class, exchange.getExchangeSpecification())
-                        .build();
-        this.apiKey = exchange.getExchangeSpecification().getApiKey();
-        this.apiSecret = exchange.getExchangeSpecification().getSecretKey();
-        this.url = exchange.getExchangeSpecification().getSslUri();
-        this.signatureCreator = MxcDigest.createInstance(this.apiSecret);
-    }
+  /**
+   * Constructor
+   *
+   * @param exchange
+   */
+  public MxcBaseService(Exchange exchange) {
+    super(exchange);
+    this.mxc =
+        ExchangeRestProxyBuilder.forInterface(
+                MxcAuthenticated.class, exchange.getExchangeSpecification())
+            .build();
+    this.apiKey = exchange.getExchangeSpecification().getApiKey();
+    this.apiSecret = exchange.getExchangeSpecification().getSecretKey();
+    this.url = exchange.getExchangeSpecification().getSslUri();
+    this.signatureCreator = MxcDigest.createInstance(this.apiSecret);
+  }
 }

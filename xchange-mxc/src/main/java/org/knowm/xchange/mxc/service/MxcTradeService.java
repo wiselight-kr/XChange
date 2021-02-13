@@ -1,8 +1,8 @@
 package org.knowm.xchange.mxc.service;
 
+import java.io.IOException;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.dto.trade.LimitOrder;
-import org.knowm.xchange.mxc.dto.trade.MxcTradeResponse;
 import org.knowm.xchange.service.trade.TradeService;
 
 public class MxcTradeService extends MxcTradeServiceRaw implements TradeService {
@@ -16,10 +16,13 @@ public class MxcTradeService extends MxcTradeServiceRaw implements TradeService 
     super(exchange);
   }
 
-  public String placeLimitOrder(LimitOrder limitOrder) {
+  public String placeLimitOrder(LimitOrder limitOrder) throws IOException {
 
-    MxcTradeResponse response = placeLimitOrderRaw(limitOrder);
-
-    return response.getOrderId();
+    return placeLimitOrderRaw(
+            limitOrder.getCurrencyPair(),
+            limitOrder.getType(),
+            limitOrder.getLimitPrice(),
+            limitOrder.getOriginalAmount())
+        .getData();
   }
 }
