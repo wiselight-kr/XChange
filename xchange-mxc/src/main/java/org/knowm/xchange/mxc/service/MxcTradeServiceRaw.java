@@ -30,8 +30,11 @@ public class MxcTradeServiceRaw extends MxcBaseService {
     request.setPrice(price);
     request.setQuantity(amount);
 
-    MxcTradeResponse response =
-        mxc.limitOrder(this.apiKey, exchange.getNonceFactory(), this.signatureCreator, request);
+    Long nonce = exchange.getNonceFactory().createValue();
+    String sign =
+        this.signatureCreator.createPostSign("/open/api/v2/order/place", this.apiKey, nonce);
+
+    MxcTradeResponse response = mxc.limitOrder(this.apiKey, nonce, sign, request);
     return response;
   }
 }

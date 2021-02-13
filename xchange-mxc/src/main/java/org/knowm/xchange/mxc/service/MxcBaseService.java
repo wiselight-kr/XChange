@@ -6,7 +6,6 @@ import org.knowm.xchange.mxc.MxcAuthenticated;
 import org.knowm.xchange.mxc.MxcDigest;
 import org.knowm.xchange.service.BaseExchangeService;
 import org.knowm.xchange.service.BaseService;
-import si.mazi.rescu.ParamsDigest;
 
 public class MxcBaseService extends BaseExchangeService implements BaseService {
 
@@ -14,7 +13,7 @@ public class MxcBaseService extends BaseExchangeService implements BaseService {
   protected final String apiKey;
   protected final String apiSecret;
   protected final String url;
-  protected ParamsDigest signatureCreator;
+  protected MxcDigest signatureCreator;
 
   /**
    * Constructor
