@@ -1,6 +1,5 @@
 package org.knowm.xchange.mxc;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import javax.crypto.Mac;
@@ -29,9 +28,26 @@ public class MxcDigest extends BaseParamsDigest {
         .append(reqTime);
 
     Mac mac = getMac();
-    mac.update(sb.toString().getBytes("UTF-8"));
+    try {
+      mac.update(sb.toString().getBytes("UTF-8"));
+    } catch (UnsupportedEncodingException e) {
+      throw new RuntimeException("Illegal encoding, check the code.", e);
+    }
 
-    return String.format("%0128x", new BigInteger(1, mac.doFinal()));
+    return byte2hex(mac.doFinal());
+  }
+
+  private static String byte2hex(byte[] b) {
+    StringBuilder hs = new StringBuilder();
+    String temp;
+    for (int n = 0; b != null && n < b.length; n++) {
+      temp = Integer.toHexString(b[n] & 0XFF);
+      if (temp.length() == 1) {
+        hs.append('0');
+      }
+      hs.append(temp);
+    }
+    return hs.toString();
   }
 
   @Override
@@ -53,8 +69,6 @@ public class MxcDigest extends BaseParamsDigest {
       return String.format("%0128x", new BigInteger(1, mac.doFinal()));
     } catch (UnsupportedEncodingException e) {
       throw new RuntimeException("Illegal encoding, check the code.", e);
-    } catch (JsonProcessingException e) {
-      throw new RuntimeException(e.getMessage());
     }
   }
 }
