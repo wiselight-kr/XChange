@@ -4,12 +4,14 @@ import org.knowm.xchange.BaseExchange;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ExchangeSpecification;
 import org.knowm.xchange.mxc.service.MxcTradeService;
-import org.knowm.xchange.utils.nonce.CurrentTime1000NonceFactory;
+import org.knowm.xchange.utils.nonce.CurrentTimeIncrementalNonceFactory;
 import si.mazi.rescu.SynchronizedValueFactory;
+
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 public class MxcExchange extends BaseExchange implements Exchange {
 
-  private SynchronizedValueFactory<Long> nonceFactory = new CurrentTime1000NonceFactory();
+  private SynchronizedValueFactory<Long> nonceFactory = new CurrentTimeIncrementalNonceFactory(MILLISECONDS);
 
   @Override
   protected void initServices() {
@@ -24,8 +26,8 @@ public class MxcExchange extends BaseExchange implements Exchange {
   @Override
   public ExchangeSpecification getDefaultExchangeSpecification() {
     ExchangeSpecification exchangeSpecification = new ExchangeSpecification(this.getClass());
-    exchangeSpecification.setSslUri("https://www.mxc.com");
-    exchangeSpecification.setHost("www.mxc.com");
+    exchangeSpecification.setSslUri("https://www.mexc.com");
+    exchangeSpecification.setHost("www.mexc.com");
     exchangeSpecification.setExchangeName("Mxc");
 
     return exchangeSpecification;
