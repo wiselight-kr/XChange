@@ -7,11 +7,11 @@ import org.knowm.xchange.mxc.service.MxcTradeService;
 import org.knowm.xchange.utils.nonce.CurrentTimeIncrementalNonceFactory;
 import si.mazi.rescu.SynchronizedValueFactory;
 
-import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class MxcExchange extends BaseExchange implements Exchange {
 
-  private SynchronizedValueFactory<Long> nonceFactory = new CurrentTimeIncrementalNonceFactory(MILLISECONDS);
+  private SynchronizedValueFactory<Long> nonceFactory = new CurrentTimeIncrementalNonceFactory(SECONDS);
 
   @Override
   protected void initServices() {
