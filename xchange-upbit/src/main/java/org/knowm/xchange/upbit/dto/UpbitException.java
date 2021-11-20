@@ -1,17 +1,33 @@
 package org.knowm.xchange.upbit.dto;
 
-@SuppressWarnings("serial")
-public class UpbitException extends RuntimeException {
+import com.fasterxml.jackson.annotation.JsonProperty;
+import si.mazi.rescu.HttpStatusExceptionSupport;
 
-  private String message;
+public class UpbitException extends HttpStatusExceptionSupport {
 
-  public UpbitException(String message) {
+  private UpbitError error;
+
+  public UpbitException(@JsonProperty("error") UpbitError error) {
     super();
-    this.message = message;
+    this.error = error;
+  }
+
+  public static class UpbitError {
+
+    private String name;
+    private String message;
+
+    UpbitError(@JsonProperty("name") String name,
+               @JsonProperty("message") String message) {
+      this.name = name;
+      this.message = message;
+    }
+
   }
 
   @Override
-  public String toString() {
-    return this.message;
+  public String getMessage() {
+    return this.error.message;
   }
+
 }
