@@ -1,11 +1,13 @@
 package org.knowm.xchange.zb;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.knowm.xchange.zb.dto.trade.ZbOrderRequest;
 import org.knowm.xchange.zb.dto.trade.ZbOrderResponse;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 @Path("api")
 @Produces(MediaType.APPLICATION_JSON)
@@ -15,10 +17,13 @@ public interface ZbAuthenticated {
     @Path("order")
     @Consumes(MediaType.APPLICATION_JSON)
     ZbOrderResponse limitOrder(
-            @QueryParam("method") String method,
             @QueryParam("accesskey") String apiKey,
-            @QueryParam("sign") String sign,
+            @QueryParam("amount") BigDecimal amount,
+            @QueryParam("currency") String symbol,
+            @QueryParam("method") String method,
+            @QueryParam("price") BigDecimal price,
             @QueryParam("reqTime") Long reqTime,
-            ZbOrderRequest request
+            @QueryParam("sign") String sign,
+            @QueryParam("tradeType") int tradeType
     ) throws IOException;
 }

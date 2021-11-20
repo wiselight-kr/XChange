@@ -12,7 +12,7 @@ import si.mazi.rescu.RestInvocation;
 public class ZbDigest extends BaseParamsDigest {
 
     protected ZbDigest(String sign) throws IllegalArgumentException {
-        super(sign, HMAC_MD5);
+        super(sign, HMAC_SHA_1);
     }
 
     public static ZbDigest createInstance(String sign) {
@@ -22,7 +22,7 @@ public class ZbDigest extends BaseParamsDigest {
     //Sign
     public String createPostSign(String apiKey, String apiSecret, BigDecimal amount, String symbol, BigDecimal price, int tradeType) {
         String digest = ZbUtils.digest(apiSecret);
-        StringBuilder sb = new StringBuilder(1024);
+        StringBuilder sb = new StringBuilder();
         sb.append("accesskey=")
                 .append(apiKey)
                 .append("&acctType=")

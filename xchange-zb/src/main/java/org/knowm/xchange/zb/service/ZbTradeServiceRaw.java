@@ -39,11 +39,36 @@ public class ZbTradeServiceRaw extends ZbBaseService {
         request.setTradeType(tradeType);
 
         Long nonce = exchange.getNonceFactory().createValue();
-        String sign =
-                this.signatureCreator.createPostSign(apiKey, apiSecret, amount, symbol, price, tradeType);
+        //String sign =
+        //        this.signatureCreator.createPostSign(apiKey, apiSecret, amount, symbol, price, tradeType);
+        String digest = ZbUtils.digest(apiSecret);
+        StringBuilder sb = new StringBuilder();
+        sb.append("accesskey=")
+                .append(apiKey)
+                .append("&amount=")
+                .append(amount)
+                .append("&currency=")
+                .append(symbol)
+                .append("&method=order")
+                .append("&price=")
+                .append(price)
+                .append("&tradeType=")
+                .append(tradeType);
+        String sign = ZbUtils.hmacSign(sb.toString(), digest);
 
-
-        ZbOrderResponse response = zb.limitOrder("order", this.apiKey, sign, nonce, request);
+        System.out.println("Check Digest : " + digest);
+        System.out.println("Check Param : " + sb.toString());
+        System.out.println("Check Sign : " + sign);
+        ZbOrderResponse response = zb.limitOrder(
+                this.apiKey,
+                amount,
+                symbol,
+                "order",
+                price,
+                nonce,
+                sign,
+                tradeType
+        );
         return response;
     }
 }
