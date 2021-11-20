@@ -218,7 +218,7 @@
     <module>xchange-stream-service-netty</module>
     <module>xchange-stream-service-pubnub</module>
       <module>xchange-zb</module>
-      <module>xchange_gopax</module>
+      <module>xchange-gopax</module>
   </modules>
 
   <ciManagement>

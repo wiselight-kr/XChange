@@ -3,6 +3,7 @@ package org.known.xchange.gopax.service;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.Order;
+import org.known.xchange.gopax.GopaxException;
 import org.known.xchange.gopax.dto.trade.GopaxTradeRequest;
 import org.known.xchange.gopax.dto.trade.GopaxTradeResponse;
 
@@ -22,9 +23,9 @@ public class GopaxTradeServiceRaw extends GopaxBaseService {
 
     public GopaxTradeResponse placeLimitOrderRaw(
             CurrencyPair pair, Order.OrderType type, BigDecimal price, BigDecimal amount)
-            throws IOException {
+            throws IOException, GopaxException {
         GopaxTradeRequest request = new GopaxTradeRequest();
-        String symbol = String.format("%s_%s", pair.base.getSymbol().toUpperCase(), pair.counter.getSymbol().toUpperCase());
+        String symbol = String.format("%s-%s", pair.base.getSymbol().toUpperCase(), pair.counter.getSymbol().toUpperCase());
         request.setSymbol(symbol);
         String tradeType;
         if(type == Order.OrderType.BID)
@@ -37,10 +38,8 @@ public class GopaxTradeServiceRaw extends GopaxBaseService {
         request.setAmount(amount);
 
         Long timeStamp = exchange.getNonceFactory().createValue();
-        String sign =
-                this.signatureCreator.createPostSign(apiSecret, timeStamp, "POST", "/orders", request);
 
-        GopaxTradeResponse response = gopax.limitOrder(this.apiKey, timeStamp, sign, request);
+        GopaxTradeResponse response = gopax.limitOrder(this.apiKey, timeStamp, this.signatureCreator, request);
         return response;
     }
 }

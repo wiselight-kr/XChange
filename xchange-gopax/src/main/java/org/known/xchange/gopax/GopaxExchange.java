@@ -26,8 +26,8 @@ public class GopaxExchange extends BaseExchange implements Exchange {
     @Override
     public ExchangeSpecification getDefaultExchangeSpecification() {
         ExchangeSpecification exchangeSpecification = new ExchangeSpecification(this.getClass());
-        exchangeSpecification.setSslUri("https://www.gopax.co.kr");
-        exchangeSpecification.setHost("www.gopax.co.kr");
+        exchangeSpecification.setSslUri("https://api.gopax.co.kr");
+        exchangeSpecification.setHost("api.gopax.co.kr");
         exchangeSpecification.setExchangeName("Gopax");
 
         return exchangeSpecification;

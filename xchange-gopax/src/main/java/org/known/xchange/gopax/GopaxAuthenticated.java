@@ -2,6 +2,7 @@ package org.known.xchange.gopax;
 
 import org.known.xchange.gopax.dto.trade.GopaxTradeRequest;
 import org.known.xchange.gopax.dto.trade.GopaxTradeResponse;
+import si.mazi.rescu.ParamsDigest;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -16,7 +17,7 @@ public interface GopaxAuthenticated {
     GopaxTradeResponse limitOrder(
             @HeaderParam("api-key") String apiKey,
             @HeaderParam("timestamp") Long timeStamp,
-            @HeaderParam("signature") String signature,
+            @HeaderParam("signature") ParamsDigest signatureCreator,
             GopaxTradeRequest request
-    ) throws IOException;
+    ) throws IOException, GopaxException;
 }
