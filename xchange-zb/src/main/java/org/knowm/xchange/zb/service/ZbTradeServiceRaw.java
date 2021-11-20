@@ -56,9 +56,6 @@ public class ZbTradeServiceRaw extends ZbBaseService {
                 .append(tradeType);
         String sign = ZbUtils.hmacSign(sb.toString(), digest);
 
-        System.out.println("Check Digest : " + digest);
-        System.out.println("Check Param : " + sb.toString());
-        System.out.println("Check Sign : " + sign);
         ZbOrderResponse response = zb.limitOrder(
                 this.apiKey,
                 amount,
@@ -69,6 +66,8 @@ public class ZbTradeServiceRaw extends ZbBaseService {
                 sign,
                 tradeType
         );
+
+        if (response.getCode() != 1000) throw new ExchangeException(response.getMessage());
         return response;
     }
 }
