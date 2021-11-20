@@ -17,5 +17,5 @@ public interface MxcAuthenticated {
       @QueryParam("req_time") Long reqTime,
       @QueryParam("sign") String sign,
       MxcTradeRequest request)
-      throws IOException;
+      throws IOException, MxcException;
 }
