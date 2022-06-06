@@ -81,8 +81,8 @@ public class BithumbTradeServiceRaw extends BithumbBaseService {
             "2",
             endpointGenerator,
             marketOrder.getOriginalAmount(),
-            BithumbUtils.getBaseCurrency(marketOrder.getCurrencyPair()),
-            BithumbUtils.getCounterCurrency());
+            marketOrder.getCurrencyPair().base.getCurrencyCode(),
+            marketOrder.getCurrencyPair().counter.getCurrencyCode());
       case ASK:
         return bithumbAuthenticated.marketSell(
             apiKey,
@@ -91,8 +91,8 @@ public class BithumbTradeServiceRaw extends BithumbBaseService {
             "2",
             endpointGenerator,
             marketOrder.getOriginalAmount(),
-            BithumbUtils.getBaseCurrency(marketOrder.getCurrencyPair()),
-            BithumbUtils.getCounterCurrency());
+            marketOrder.getCurrencyPair().base.getCurrencyCode(),
+            marketOrder.getCurrencyPair().counter.getCurrencyCode());
       default:
         throw new NotAvailableFromExchangeException();
     }
@@ -106,8 +106,8 @@ public class BithumbTradeServiceRaw extends BithumbBaseService {
         exchange.getNonceFactory(),
         "2",
         endpointGenerator,
-        BithumbUtils.getBaseCurrency(currencyPair),
-        BithumbUtils.getCounterCurrency(),
+        limitOrder.getCurrencyPair().base.getCurrencyCode(),
+        limitOrder.getCurrencyPair().counter.getCurrencyCode(),
         limitOrder.getOriginalAmount(),
         limitOrder.getLimitPrice(),
         BithumbUtils.fromOrderType(limitOrder.getType()));

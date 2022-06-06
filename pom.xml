@@ -187,6 +187,8 @@
     <module>xchange-yobit</module>
     <module>xchange-zaif</module>
     <module>xchange-enigma</module>
+	<module>xchange-indodax</module>
+	<module>xchange-mxc</module>
 
 
     <module>xchange-stream-bankera</module>
@@ -217,6 +219,8 @@
     <module>xchange-stream-service-netty</module>
     <module>xchange-stream-service-pubnub</module>
     <module>xchange-stream-coincheck</module>
+      <module>xchange-zb</module>
+      <module>xchange-gopax</module>
   </modules>
 
   <ciManagement>
