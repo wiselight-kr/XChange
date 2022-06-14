@@ -6,6 +6,7 @@ import java.util.Collection;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.dto.Order;
 import org.knowm.xchange.dto.trade.LimitOrder;
+import org.knowm.xchange.dto.trade.MarketOrder;
 import org.knowm.xchange.service.trade.TradeService;
 import org.knowm.xchange.service.trade.params.CancelOrderParams;
 import org.knowm.xchange.service.trade.params.DefaultCancelOrderParamId;
@@ -23,6 +24,11 @@ public class UpbitTradeService extends UpbitTradeServiceRaw implements TradeServ
   @Override
   public String placeLimitOrder(LimitOrder limitOrder) throws IOException {
     return super.limitOrder(limitOrder).getUuid();
+  }
+
+  @Override
+  public String placeMarketOrder(MarketOrder marketOrder) throws IOException {
+    return super.marketOrder(marketOrder).getUuid();
   }
 
   @Override

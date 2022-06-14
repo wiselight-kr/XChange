@@ -3,6 +3,7 @@ package org.knowm.xchange.upbit.service;
 import java.io.IOException;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.dto.trade.LimitOrder;
+import org.knowm.xchange.dto.trade.MarketOrder;
 import org.knowm.xchange.upbit.UpbitUtils;
 import org.knowm.xchange.upbit.dto.account.UpbitBalances;
 import org.knowm.xchange.upbit.dto.trade.UpbitOrderRequest;
@@ -30,6 +31,18 @@ public class UpbitTradeServiceRaw extends UpbitBaseService {
     upbitOrderRequest.setSide(UpbitUtils.toSide(limitOrder.getType()));
     upbitOrderRequest.setOrderType("limit");
     return upbit.limitOrder(this.signatureCreator, upbitOrderRequest);
+  }
+
+  public UpbitOrderResponse marketOrder(MarketOrder marketOrder) throws IOException {
+    UpbitOrderRequest upbitOrderRequest = new UpbitOrderRequest();
+    String marketId =
+            marketOrder.getCurrencyPair().counter + "-" + marketOrder.getCurrencyPair().base;
+    upbitOrderRequest.setMarketId(marketId);
+    upbitOrderRequest.setVolume(marketOrder.getOriginalAmount().toString());
+    upbitOrderRequest.setSide(UpbitUtils.toSide(marketOrder.getType()));
+    upbitOrderRequest.setOrderType("market");
+    return upbit.limitOrder(this.signatureCreator, upbitOrderRequest);
+
   }
 
   public UpbitOrderResponse cancelOrderRaw(String cancelId) throws IOException {
