@@ -38,4 +38,5 @@ public class IndodaxTradeServiceRaw extends IndodaxBaseService {
     if (response.getError() != null) throw new ExchangeException(response.getError());
     return response;
   }
+
 }

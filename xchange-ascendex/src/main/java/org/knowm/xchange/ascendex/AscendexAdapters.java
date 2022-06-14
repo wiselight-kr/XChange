@@ -28,10 +28,7 @@ import org.knowm.xchange.dto.marketdata.Trades;
 import org.knowm.xchange.dto.meta.CurrencyMetaData;
 import org.knowm.xchange.dto.meta.CurrencyPairMetaData;
 import org.knowm.xchange.dto.meta.ExchangeMetaData;
-import org.knowm.xchange.dto.trade.LimitOrder;
-import org.knowm.xchange.dto.trade.OpenOrders;
-import org.knowm.xchange.dto.trade.UserTrade;
-import org.knowm.xchange.dto.trade.UserTrades;
+import org.knowm.xchange.dto.trade.*;
 import org.knowm.xchange.utils.jackson.CurrencyPairDeserializer;
 
 public class AscendexAdapters {
@@ -108,6 +105,25 @@ public class AscendexAdapters {
         limitOrder.hasFlag(AscendexFlags.POST_ONLY),
         null,
         null);
+  }
+
+  public static AscendexPlaceOrderRequestPayload adaptMarketOrderToAscendexPlaceOrderRequestPayload(
+          MarketOrder marketOrder) {
+    System.out.println("2");
+    return new AscendexPlaceOrderRequestPayload(
+            marketOrder.getInstrument().toString(),
+            Date.from(Instant.now()).toInstant().toEpochMilli(),
+            marketOrder.getOriginalAmount().toString(),
+            AscendexPlaceOrderRequestPayload.AscendexOrderType.market,
+            marketOrder.getType().equals(Order.OrderType.ASK)
+                    ? AscendexPlaceOrderRequestPayload.AscendexSide.sell
+                    : AscendexPlaceOrderRequestPayload.AscendexSide.buy,
+            null,
+            null,
+            null,
+            marketOrder.hasFlag(AscendexFlags.POST_ONLY),
+            null,
+            null);
   }
 
   public static UserTrades adaptUserTrades(

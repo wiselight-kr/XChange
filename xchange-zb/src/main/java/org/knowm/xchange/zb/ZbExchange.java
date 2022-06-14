@@ -26,7 +26,7 @@ public class ZbExchange extends BaseExchange implements Exchange {
     @Override
     public ExchangeSpecification getDefaultExchangeSpecification() {
         ExchangeSpecification exchangeSpecification = new ExchangeSpecification(this.getClass());
-        exchangeSpecification.setSslUri("https://trade.zb.team");
+        exchangeSpecification.setSslUri("https://trade.zb.com");
         exchangeSpecification.setHost("www.zb.com");
         exchangeSpecification.setExchangeName("Zb");
 

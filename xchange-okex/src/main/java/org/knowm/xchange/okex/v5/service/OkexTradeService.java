@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.knowm.xchange.client.ResilienceRegistries;
 import org.knowm.xchange.dto.Order;
 import org.knowm.xchange.dto.trade.LimitOrder;
+import org.knowm.xchange.dto.trade.MarketOrder;
 import org.knowm.xchange.dto.trade.OpenOrders;
 import org.knowm.xchange.dto.trade.UserTrades;
 import org.knowm.xchange.exceptions.FundsExceededException;
@@ -153,6 +154,18 @@ public class OkexTradeService extends OkexTradeServiceRaw implements TradeServic
       throw new OkexException(
           okexResponse.getData().get(0).getMessage(),
           Integer.parseInt(okexResponse.getData().get(0).getCode()));
+  }
+
+  @Override
+  public String placeMarketOrder(MarketOrder marketOrder) throws IOException {
+    OkexResponse<List<OkexOrderResponse>> okexResponse =
+            placeOkexOrder(OkexAdapters.adaptOrder(marketOrder));
+
+    if (okexResponse.isSuccess()) return okexResponse.getData().get(0).getOrderId();
+    else
+      throw new OkexException(
+              okexResponse.getData().get(0).getMessage(),
+              Integer.parseInt(okexResponse.getData().get(0).getCode()));
   }
 
   public List<String> placeLimitOrder(List<LimitOrder> limitOrders)

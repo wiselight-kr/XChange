@@ -6,6 +6,7 @@ import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ascendex.AscendexAdapters;
 import org.knowm.xchange.dto.Order;
 import org.knowm.xchange.dto.trade.LimitOrder;
+import org.knowm.xchange.dto.trade.MarketOrder;
 import org.knowm.xchange.dto.trade.OpenOrders;
 import org.knowm.xchange.dto.trade.UserTrades;
 import org.knowm.xchange.service.trade.TradeService;
@@ -28,6 +29,15 @@ public class AscendexTradeService extends AscendexTradeServiceRaw implements Tra
             AscendexAdapters.adaptLimitOrderToAscendexPlaceOrderRequestPayload(limitOrder))
         .getInfo()
         .getOrderId();
+  }
+
+  @Override
+  public String placeMarketOrder(MarketOrder marketOrder) throws IOException {
+    System.out.println("1");
+    return placeAscendexOrder(
+            AscendexAdapters.adaptMarketOrderToAscendexPlaceOrderRequestPayload(marketOrder))
+            .getInfo()
+            .getOrderId();
   }
 
   @Override

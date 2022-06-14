@@ -12,10 +12,7 @@ import org.knowm.xchange.dto.meta.CurrencyMetaData;
 import org.knowm.xchange.dto.meta.CurrencyPairMetaData;
 import org.knowm.xchange.dto.meta.ExchangeMetaData;
 import org.knowm.xchange.dto.meta.WalletHealth;
-import org.knowm.xchange.dto.trade.LimitOrder;
-import org.knowm.xchange.dto.trade.OpenOrders;
-import org.knowm.xchange.dto.trade.UserTrade;
-import org.knowm.xchange.dto.trade.UserTrades;
+import org.knowm.xchange.dto.trade.*;
 import org.knowm.xchange.instrument.Instrument;
 import org.knowm.xchange.okex.v5.dto.OkexResponse;
 import org.knowm.xchange.okex.v5.dto.account.OkexAssetBalance;
@@ -127,6 +124,18 @@ public class OkexAdapters {
         .amount(order.getOriginalAmount().toString())
         .price(order.getLimitPrice().toString())
         .build();
+  }
+  public static OkexOrderRequest adaptOrder(MarketOrder order) {
+    return OkexOrderRequest.builder()
+            .instrumentId(adaptInstrumentId(order.getInstrument()))
+            .tradeMode(order.getInstrument() instanceof CurrencyPair ? "cash" : "cross")
+            .side(order.getType() == Order.OrderType.BID ? "buy" : "sell")
+            .posSide(null) // PosSide should come as a input from an extended LimitOrder class to
+            // support Futures/Swap capabilities of Okex, till then it should be null to
+            // perform "net" orders
+            .orderType("market")
+            .amount(order.getOriginalAmount().toString())
+            .build();
   }
 
   public static OrderBook adaptOrderBook(
