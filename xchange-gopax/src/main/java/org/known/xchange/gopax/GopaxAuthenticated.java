@@ -20,4 +20,6 @@ public interface GopaxAuthenticated {
             @HeaderParam("signature") ParamsDigest signatureCreator,
             GopaxTradeRequest request
     ) throws IOException, GopaxException;
+
+
 }

@@ -42,4 +42,26 @@ public class GopaxTradeServiceRaw extends GopaxBaseService {
         GopaxTradeResponse response = gopax.limitOrder(this.apiKey, timeStamp, this.signatureCreator, request);
         return response;
     }
+
+    public GopaxTradeResponse placeMarketOrderRaw(
+            CurrencyPair pair, Order.OrderType type, BigDecimal amount)
+            throws IOException, GopaxException {
+        GopaxTradeRequest request = new GopaxTradeRequest();
+        String symbol = String.format("%s-%s", pair.base.getSymbol().toUpperCase(), pair.counter.getSymbol().toUpperCase());
+        request.setSymbol(symbol);
+        String tradeType;
+        if(type == Order.OrderType.BID)
+            tradeType = "buy";
+        else
+            tradeType = "sell";
+        request.setTradeType(tradeType);
+        request.setOrderType("market");
+        request.setAmount(amount);
+
+        Long timeStamp = exchange.getNonceFactory().createValue();
+
+        GopaxTradeResponse response = gopax.limitOrder(this.apiKey, timeStamp, this.signatureCreator, request);
+        return response;
+    }
+
 }
